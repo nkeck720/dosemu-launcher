@@ -1,0 +1,52 @@
+#!/bin/bash
+
+#
+# Bootstrap for the launchemu software
+#
+
+#
+# Get options for dosemu
+#
+
+for arg
+do
+	case $arg
+	in
+		"run") exec launcher.sh -r;;
+		"ver") exec launcher.sh -v;;
+	esac
+	shift
+done
+#
+# Do the initial file check
+#
+echo -n "Checking file launcher.conf..."
+if [ ! -x "launcher.conf" ]
+then
+        echo
+        echo "ERROR #1: Unable to read launcher.conf. You may continue, but you"
+	echo "		will not be able to load your settings."
+	echo
+	echo -e "Continue (y/n)? \c"
+	read answer
+	case answer
+	in
+		n) exit 1;;
+		y) nosave="TRUE";
+	esac
+fi
+echo " [ OK ] "
+echo -n "Checking file launcher.sh..."
+if [ ! -x "launcher.sh" ]
+then
+        echo
+        echo "ERROR #2: Critical error - unable to read launcher.sh. Please reinstall."
+	exit 2
+fi
+echo " [ OK ] "
+echo "Startup OK."
+sleep 3
+#
+# Kill this process and replace it with launcher
+#
+if test "$nosave" != "TRUE"; then exec launcher.sh; else exec launcher.sh -n; fi
