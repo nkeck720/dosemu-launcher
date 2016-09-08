@@ -1,5 +1,7 @@
 # dosemu-launcher
 
+*NOTE:* This text is taken from README.pdf. The text will probably look better if viewed there.
+
 [README FILE FOR launchemu DATE Mon 01 Jun 2015 12:46:46 PM EDT]
 
 1.0 Intro
