@@ -8,125 +8,125 @@ alias echo="echo -e"
 # define functions
 
 dispconf () {
-clear
-echo "Display configuration"
-echo "---------------------"
-echo 
-echo "	1. Use X display"
-echo "	2. Use SDL display"
-echo "	3. Use default display"
-echo
-echo "Choose one: \c"
-read answer
-case $answer
-in
-	1) USE_X_DISPLAY=TRUE
-	   USE_SDL_DISPLAY=FALSE
-	   USE_DEFAULT_DISPLAY=FALSE;;
-	2) USE_X_DISPLAY=FALSE
-	   USE_SDL_DISPLAY=TRUE
-	   USE_DEFAULT_DISPLAY=FALSE;;
-	3) USE_X_DISPLAY=FALSE
-	   USE_SDL_DISPLAY=FALSE
-	   USE_DEFAULT_DISPLAY=TRUE;;
-        *) echo "Bad choice"
-	   sleep 5;;
-esac
+	clear
+	echo "Display configuration"
+	echo "---------------------"
+	echo 
+	echo "	1. Use X display"
+	echo "	2. Use SDL display"
+	echo "	3. Use default display"
+	echo
+	echo "Choose one: \c"
+	read answer
+	case $answer
+	in
+	     1) USE_X_DISPLAY=TRUE
+	   	USE_SDL_DISPLAY=FALSE
+	   	USE_DEFAULT_DISPLAY=FALSE;;
+	     2) USE_X_DISPLAY=FALSE
+	   	USE_SDL_DISPLAY=TRUE
+		USE_DEFAULT_DISPLAY=FALSE;;
+	     3) USE_X_DISPLAY=FALSE
+	   	USE_SDL_DISPLAY=FALSE
+	   	USE_DEFAULT_DISPLAY=TRUE;;
+             *) echo "Bad choice"
+	   	sleep 5;;
+	esac
 }
 
 drivconf () {
-clear
-echo "Boot drive setup"
-echo "----------------"
-echo
-echo "	1. Boot from drive A"
-echo "	2. Boot from drive C"
-echo "	3. Boot from default drive"
-echo
-echo "Choose one: \c"
-read answer
-case $answer
-in
-	1) BOOT_A=TRUE
-	   BOOT_C=FALSE
-	   BOOT_DEFAULT=FALSE;;
-	2) BOOT_A=FALSE
-	   BOOT_C=TRUE
-	   BOOT_DEFAULT=FALSE;;
-	3) BOOT_A=FALSE
-	   BOOT_C=FALSE
-	   BOOT_DEFAULT=TRUE;;
-	*) echo "Bad choice"
-	   sleep 5;;
-esac
+	clear
+	echo "Boot drive setup"
+	echo "----------------"
+	echo
+	echo "	1. Boot from drive A"
+	echo "	2. Boot from drive C"
+	echo "	3. Boot from default drive"
+	echo
+	echo "Choose one: \c"
+	read answer
+	case $answer
+	in
+	     1) BOOT_A=TRUE
+	   	BOOT_C=FALSE
+	   	BOOT_DEFAULT=FALSE;;
+	     2) BOOT_A=FALSE
+	   	BOOT_C=TRUE
+	   	BOOT_DEFAULT=FALSE;;
+	     3) BOOT_A=FALSE
+		BOOT_C=FALSE
+	   	BOOT_DEFAULT=TRUE;;
+	     *) echo "Bad choice"
+	   	sleep 5;;
+	esac
 }
 
 saveconf () {
-echo "Saving..."
-rm launcher.conf
-exec > launcher.conf
-echo "#"
-echo "# This .conf file contains the saved info from the dosemu launcher. Do not"
-echo "# edit this file unless absolutely necessary."
-echo "#"
-echo
-if [ "$BOOT_A" = "TRUE" ]
-then
-	echo "BOOT_A=TRUE"
-elif [ "$BOOT_C" = "TRUE" ]
-then
-	echo "BOOT_C=TRUE"
-else
-	echo "BOOT_DEFAULT=TRUE"
-fi
-if [ "$USE_X_DISPLAY" = "TRUE" ]
-then
-	echo "USE_X_DISPLAY=TRUE"
-elif [ "$USE_SDL_DISPLAY" = "TRUE" ]
-then
-	echo "USE_SDL_DISPLAY=TRUE"
-else
-	echo "USE_DEFAULT_DISPLAY=TRUE"
-fi
-echo "#"
-echo "# Do not edit past this point"
-echo "#"
-echo "export USE_X_DISPLAY USE_SDL_DISPLAY USE_DEFAULT_DISPLAY BOOT_A BOOT_C BOOT_DEFAULT"
-exec > /dev/tty
-chmod +x launcher.conf
-echo "Saved."
-sleep 3
+	echo "Saving..."
+	rm launcher.conf
+	exec > launcher.conf
+	echo "#"
+	echo "# This .conf file contains the saved info from the dosemu launcher. Do not"
+	echo "# edit this file unless absolutely necessary."
+	echo "#"
+	echo
+	if [ "$BOOT_A" = "TRUE" ]
+	then
+		echo "BOOT_A=TRUE"
+	elif [ "$BOOT_C" = "TRUE" ]
+	then
+		echo "BOOT_C=TRUE"
+	else
+		echo "BOOT_DEFAULT=TRUE"
+	fi
+	if [ "$USE_X_DISPLAY" = "TRUE" ]
+	then
+		echo "USE_X_DISPLAY=TRUE"
+	elif [ "$USE_SDL_DISPLAY" = "TRUE" ]
+	then
+		echo "USE_SDL_DISPLAY=TRUE"
+	else
+		echo "USE_DEFAULT_DISPLAY=TRUE"
+	fi
+	echo "#"
+	echo "# Do not edit past this point"
+	echo "#"
+	echo "export USE_X_DISPLAY USE_SDL_DISPLAY USE_DEFAULT_DISPLAY BOOT_A BOOT_C BOOT_DEFAULT"
+	exec > /dev/tty
+	chmod +x launcher.conf
+	echo "Saved."
+	sleep 3
 }
 
 dispsets () {
-clear
-echo "Current settings"
-echo "----------------"
-echo
-echo "Display type: \c"
-if [ "$USE_X_DISPLAY" = "TRUE" ]
-then
-	echo "X window"
-elif [ "$USE_SDL_DISPLAY" = "TRUE" ]
-then
-	echo "SDL window"
-else
-	echo "DEFAULT"
-fi
-echo "Boot Drive: \c"
-if [ "$BOOT_A" = "TRUE" ]
-then
-	echo "A: (/dev/fd0)"
-elif [ "$BOOT_C" = "TRUE" ]
-then
-	echo "C: (usually FreeDos)"
-else
-	echo "DEFAULT"
-fi
-echo
-echo "Press RETURN to continue"
-read answer
-answer=''
+	clear
+	echo "Current settings"
+	echo "----------------"
+	echo
+	echo "Display type: \c"
+	if [ "$USE_X_DISPLAY" = "TRUE" ]
+	then
+		echo "X window"
+	elif [ "$USE_SDL_DISPLAY" = "TRUE" ]
+	then
+		echo "SDL window"
+	else
+		echo "DEFAULT"
+	fi
+	echo "Boot Drive: \c"
+	if [ "$BOOT_A" = "TRUE" ]
+	then
+		echo "A: (/dev/fd0)"
+	elif [ "$BOOT_C" = "TRUE" ]
+	then
+		echo "C: (usually FreeDos)"
+	else
+		echo "DEFAULT"
+	fi
+	echo
+	echo "Press RETURN to continue"
+	read answer
+	answer=''
 }
 
 #
